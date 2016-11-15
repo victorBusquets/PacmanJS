@@ -69,8 +69,20 @@ var Canvas = function( domId ){
 		context.strokeStyle = color;
 		context.stroke();
 	},
-	drawImage = function( img, startX, startY, width, height ){
-		context.drawImage( img, startX, startY, width, height );
+	rotateContext = function( x, y, degree ){
+		context.save();
+		context.translate( x, y );
+  		context.rotate( Math.PI / degree );
+	},
+	restoreContext = function( ){
+		context.restore();
+	},
+	drawImage = function( img, startX, startY, width, height, destinationX, destinationY, destWidth, destHeight ){
+		if( arguments.length == 9 ){
+			context.drawImage( img, startX, startY, width, height, destinationX, destinationY, destWidth, destHeight );
+		}else{
+			context.drawImage( img, startX, startY, width, height );
+		}
 	};
 	
 	return {
@@ -91,6 +103,8 @@ var Canvas = function( domId ){
 		strokeLimitedCircle: strokeLimitedCircle,
 		drawImage: drawImage,
 		resetOpacity: resetOpacity,
-		setOpacity: setOpacity
+		setOpacity: setOpacity,
+		rotateContext: rotateContext,
+		restoreContext: restoreContext 
 	};
 };
