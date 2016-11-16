@@ -69,17 +69,20 @@ var Canvas = function( domId ){
 		context.strokeStyle = color;
 		context.stroke();
 	},
-	rotateContext = function( x, y, degree ){
+	translateContext = function(x, y ){
 		context.save();
 		context.translate( x, y );
-  		context.rotate( Math.PI / degree );
 	},
-	restoreContext = function( ){
+	rotateContext = function( x, y, degrees ){
+	    translateContext( x, y );
+		context.rotate( degrees * Math.PI/180 );
+	},
+	restoreContext = function(){
 		context.restore();
 	},
-	drawImage = function( img, startX, startY, width, height, destinationX, destinationY, destWidth, destHeight ){
-		if( arguments.length == 9 ){
-			context.drawImage( img, startX, startY, width, height, destinationX, destinationY, destWidth, destHeight );
+	drawImage = function( img, startX, startY, width, height, destinationX, destinationY, destinationWidth, destinationHeight ){
+		if(destinationX != undefined){
+			context.drawImage( img, startX, startY, width, height, destinationX, destinationY, destinationWidth, destinationHeight );
 		}else{
 			context.drawImage( img, startX, startY, width, height );
 		}
@@ -105,6 +108,6 @@ var Canvas = function( domId ){
 		resetOpacity: resetOpacity,
 		setOpacity: setOpacity,
 		rotateContext: rotateContext,
-		restoreContext: restoreContext 
+		restoreContext: restoreContext
 	};
 };
