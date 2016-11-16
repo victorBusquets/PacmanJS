@@ -35,7 +35,7 @@ $( document ).ready(function(){
 			var cellValue = DEFAULT_MAP.value[ y * (rowSize) + x ][0],
 				rotate = DEFAULT_MAP.value[ y * (rowSize) + x ][1];
 
-			if(cellValue!='a'){
+			if(cellValue!='a' && cellValue!='t'){
 				var spriteStartX = ( values.indexOf( cellValue ) ) * 16;//OBTENEMOS EL FRAGMENTO DE SPRITE :D
 				
 				gameCanvas.rotateContext( cellSize*x + cellsInitialPoint.x + cellSize/2, cellSize*y + cellsInitialPoint.y + cellSize/2, rotate*90 );
