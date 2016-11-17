@@ -81,7 +81,7 @@ var Canvas = function( domId ){
 		context.restore();
 	},
 	drawImage = function( img, startX, startY, width, height, destinationX, destinationY, destinationWidth, destinationHeight ){
-		if(destinationX != undefined){
+		if(arguments.length == 9){
 			context.drawImage( img, startX, startY, width, height, destinationX, destinationY, destinationWidth, destinationHeight );
 		}else{
 			context.drawImage( img, startX, startY, width, height );
