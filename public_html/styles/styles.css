@@ -3,7 +3,12 @@ body{
 }
 
 canvas{
-	margin:30px auto;
+	margin:0 auto;
+	margin-top: 20px;
 	border:solid 2px black;
 	display:block;
+}
+
+.images{
+	display:none;
 }

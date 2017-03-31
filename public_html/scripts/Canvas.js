@@ -43,10 +43,11 @@ var Canvas = function( domId ){
 		if( color != undefined ) setColor( color );
 		context.fillRect( startX, startY, endX, endY );
 	},
-	fillText = function( value, startY, startX, color, align ){
+	fillText = function( value, startX, startY, color, align, baseline ){
 		context.textAlign= align || "center";
+		context.textBaseline = baseline || "top";
 		if( color != undefined ) setColor( color );
-		context.fillText( value, startY, startX );
+		context.fillText( value, startX, startY );
 	},
 	fillFullRect = function( color ){
 		if( color != undefined ) setColor( color );
