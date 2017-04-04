@@ -116,11 +116,9 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 			)
 			&&
 			(
-				map.teleportPoints.map(function(teleportPoint){
-					teleportPoint.filter(function(teleportPosition){
-						return position.equalPosition( teleportPosition )
-					})
-				})
+				position.equalPosition(map.teleportPoints[0]) 
+					||
+				position.equalPosition(map.teleportPoints[1]) 
 			)
 		);
 	};
