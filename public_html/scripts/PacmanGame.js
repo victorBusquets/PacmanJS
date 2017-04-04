@@ -47,16 +47,6 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 		pacmanCharacter.drawImage( canvas.drawImage );
 		canvas.restoreContext();
 	};
-	function splitMap(){
-		map.value = map.value.match(/.{1,2}/g);
-	};
-	function paintGame(){
-		paintBlackFullRect();
-		paintFullMap();
-		paintMarkers();		
-		paintPacmanCharacter();	
-		ghostCollection.paint( canvas.drawImage, cellsInitialPoint );
-	};
 	function getMapValue( position ){
 		return map.value[ position.getY() * (rowSize) + position.getX() ][0];
 	};	
@@ -68,13 +58,15 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 		direction = ( keyCode>=37 && keyCode<=40 ? keyCode : direction );
 	};
 	function checkEatPoint( position ){
-		if( isPointPosition( getMapValue( position ) ) ){
-			updateScore(map.value[ position.getY() * (rowSize) + position.getX() ][0]);
+		var pointValue = getMapValue( position );
+		
+		if( isPointPosition( pointValue ) ){
+			updateScore( getPointsOfPoint( pointValue[0] ) );
 			updateRemainingPoints();
 			map.value[ position.getY() * (rowSize) + position.getX() ] = 'a0';
 		}
 	};
-	function isPointPosition(value){
+	function isPointPosition(value){/*-----*/
 		return 'ps'.indexOf(value) >= 0;
 	};
 	function loop(){
@@ -85,15 +77,8 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 		if(loopIndex%5 == 0){
 			var x = position.getX(),
 				y = position.getY(),
-				newPosition = new Position(			
-					x+( direction == 37 ? -1 : direction == 39 ? 1 :0 ),
-					y+( direction == 38 ? -1 : direction == 40 ? 1 :0 )
-				),
-				newPositionOldDirection = new Position(
-					x+( lastDirection == 37 ? -1 : lastDirection == 39 ? 1 :0 ),
-					y+( lastDirection == 38 ? -1 : lastDirection == 40 ? 1 :0 )				
-				);
-				
+				newPosition = position.getNewPositionWithDirection(direction),
+				newPositionOldDirection = position.getNewPositionWithDirection(lastDirection);
 				
 			if(validArea(newPosition)){
 				lastDirection = direction;	
@@ -122,7 +107,7 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 		
 		loopIndex++;
 	};
-	function isTeleportPoint(position, newPosition){
+	function isTeleportPoint(position, newPosition){/*-----*/
 		return (
 			(
 				(newPosition.getX()<0 || newPosition.getX()>=map.size.x)
@@ -131,15 +116,20 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 			)
 			&&
 			(
-				position.equalPosition(map.teleportPoints[0]) 
-					||
-				position.equalPosition(map.teleportPoints[1]) 
+				map.teleportPoints.map(function(teleportPoint){
+					teleportPoint.filter(function(teleportPosition){
+						return position.equalPosition( teleportPosition )
+					})
+				})
 			)
 		);
-	};	
+	};
 	//SCORE FUNCTIONS
-	function updateScore(pointType){
-		score += ( pointType === 'p' ? AMOUNT_SCORE_POINTS : AMOUNT_SCORE_SUPERPOINTS );
+	function getPointsOfPoint( pointType ){
+		return ( pointType === 'p' ? AMOUNT_SCORE_POINTS : AMOUNT_SCORE_SUPERPOINTS );
+	};
+	function updateScore( newPoints ){
+		score += newPoints;
 		paintScore(score);
 	};
 	function paintScore(score){
@@ -155,19 +145,19 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 	function paintMarkers(){
 		paintScoreTittle();
 		paintScore('00');
-		paintLifes(0);
+		paintLifes();
 	};
 	function clearLifes(){		
 		canvas.fillRect( 0, canvas.getHeight()-30 , canvas.getWidth()/2, 30, 'black');
 	};
-	function paintLifes(index){
-		if(index===0)	clearLifes();
-		canvas.rotateContext( 50+ (20*index), canvas.getHeight()-15, 3*90 );
-		pacmanCharacter.drawImage( canvas.drawImage, 1 );
-		canvas.restoreContext();
-		index++;
+	function paintLifes(){
+		clearLifes();
 		
-		if( index<remainingLifes )	paintLifes(index);
+		for(var i=0; i<remainingLifes; i++){
+			canvas.rotateContext( 50+ (20*i), canvas.getHeight()-15, 3*90 );
+			pacmanCharacter.drawImage( canvas.drawImage, 1 );
+			canvas.restoreContext();
+		}
 	};
 	function paintScoreTittle(){
 		canvas.setFont('20px Arial');
@@ -179,6 +169,16 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 	};
 	function countPoints(){
 		remainingPoints = (map.value.match(/[p,s]/g) || []).length;
+	};
+	function splitMap(){
+		map.value = map.value.match(/.{1,2}/g);
+	};
+	function paintGame(){
+		paintBlackFullRect();
+		paintFullMap();
+		paintMarkers();		
+		paintPacmanCharacter();	
+		ghostCollection.paint( canvas.drawImage, cellsInitialPoint );
 	};
 	function init(){
 		countPoints();
