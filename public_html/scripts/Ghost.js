@@ -12,48 +12,11 @@ function Ghost( index, name, ghostSprite, position, free ){
 			position.setY( newPosition.getY() );
 		}	
 	};
-	function getNewblinkyPosition( ghostPosition, pacmanPosition, validAreaCallback ){
-		var difference = pacmanPosition.getDifference( ghostPosition ),
-			options = new Array(),
-			order, 
-			firstSubOrder, 
-			secondSubOrder;
-			
-		function priorityInDirection( difference, direction ){
-			return ( difference>0 ? ( direction=='x' ? '13' : '20' ) : ( direction=='x' ? '31' : '02' ) );
-		};
-		
-		if( difference.x < difference.y ){
-			firstSubOrder = 	priorityInDirection( difference.x, 'x' );
-			secondSubOrder = 	priorityInDirection( difference.y, 'y' );
-		}else{
-			firstSubOrder = 	priorityInDirection( difference.y, 'y' );
-			secondSubOrder = 	priorityInDirection( difference.x, 'x' );
-		}
-		
-		order = firstSubOrder[0] + secondSubOrder + firstSubOrder[1];
-		
-		options[ order[0] ] = {
-			position: new Position( ghostPosition.getX(), ghostPosition.getY()-1 ),
-			orientation: 0
-		};
-		options[ order[1] ] = {
-			position: new Position( ghostPosition.getX()+1, ghostPosition.getY() ),
-			orientation: 1
-		};
-		options[ order[2] ] = {
-			position: new Position( ghostPosition.getX(), ghostPosition.getY()+1 ),
-			orientation: 2
-		};
-		options[ order[3] ] = {
-			position: new Position( ghostPosition.getX()-1, ghostPosition.getY() ),
-			orientation: 3
-		};
-		optionSelected = (validAreaCallback(options[0].position) ? '0' : validAreaCallback(options[1].position) ? '1' : validAreaCallback(options[2].position) ? '2' : '3');
-		character.setOrientation( options[optionSelected].orientation );
-		
-		return options[optionSelected].position;
+	//--> CODE DEPELOPE HERE --->
+	function getNewBlinkyPosition( ghostPosition, pacmanPosition, validAreaCallback ){	
+		return ghostPosition;
 	};
+	//<--- CODE DEPELOPE HERE <---
 	function clear( clearCellCallback ){
 		if(free) clearCellCallback( position );
 	};
@@ -70,7 +33,7 @@ function Ghost( index, name, ghostSprite, position, free ){
 		paint: paint,
 		clear: clear,
 		paintCell: paintCell,
-		getNewblinkyPosition: getNewblinkyPosition
+		getNewBlinkyPosition: getNewBlinkyPosition
 	}
 };
 
