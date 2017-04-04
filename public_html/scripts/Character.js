@@ -1,34 +1,42 @@
 var Character = function( position, sprite, actualFrame, numberOfFrames, size, orientation ){
 //ESTO ES UNA PUTA FACTORIA!!!!
-	var getPosition = function(){
+	var ghostBuster = false;
+
+	function getPosition(){
 		return position;
-	},
-	setPosition = function(newPosition){
+	};
+	function setPosition(newPosition){
 		position = newPosition;
-	},
-	newFrame = function(){
+	};
+	function newFrame(){
 		actualFrame = (actualFrame + 1  >= numberOfFrames ? 0  : actualFrame + 1 );
-	},
-	getFrame = function(){
+	};
+	function getFrame(){
 		return actualFrame;
-	},
-	setFrame = function(newFrame){
+	};
+	function setFrame(newFrame){
 		actualFrame = newFrame;
-	},
-	getOrientation = function(){
+	};
+	function getOrientation(){
 		return orientation * 90;
-	},
-	setOrientation = function(newOrientation){
+	};
+	function setOrientation(newOrientation){
 		orientation = (newOrientation < 4 ? newOrientation : newOrientation == 37 ? 3 : newOrientation == 38 ? 0 : newOrientation == 39 ? 1 : newOrientation == 40 ? 2 : orientation);
-	},
-	init = function(){
-		//CODE HERE
-	},
-	drawImage = function(drawImageCallBack, lifeMode){
+	};
+	function drawImage(drawImageCallBack, lifeMode){
 		drawImageCallBack( sprite, size*( lifeMode ? 1: actualFrame ), 0, size, size, -size/2, -size/2, size, size);
-	},
-	drawImagePositioned = function(drawImageCallBack, cellsInitialPoint, index){
+	};
+	function drawImagePositioned(drawImageCallBack, cellsInitialPoint, index){
 		drawImageCallBack( sprite, orientation*size, index*size, size,size, size*position.getX() + cellsInitialPoint.getX(), size*position.getY() + cellsInitialPoint.getY(), size, size);
+	};
+	function isGhostBuster(){
+		return ghostBuster;
+	};
+	function setGhostBuster(mode){
+		ghostBuster = mode;
+	}
+	function init(){
+		//CODE HERE
 	};
 	
 	init();
@@ -42,6 +50,8 @@ var Character = function( position, sprite, actualFrame, numberOfFrames, size, o
 		setOrientation: setOrientation,
 		drawImagePositioned: drawImagePositioned,
 		drawImage: drawImage,
-		newFrame: newFrame
+		newFrame: newFrame,
+		setGhostBuster: setGhostBuster,
+		isGhostBuster: isGhostBuster
 	}
 };
