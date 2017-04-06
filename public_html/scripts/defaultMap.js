@@ -10,8 +10,8 @@ const DEFAULT_MAP = {
 		y:29
 	},
 	teleportPoints: [
-		new Position(0,14),
-		new Position(27,14)
+		new Position(0,13),
+		new Position(27,13)
 	],
 	value: 	"f3c0c0c0c0c0c0c0c0c0c0c0c0i0j0c0c0c0c0c0c0c0c0c0c0c0c0f0"+
 			"c3p0p0p0p0p0p0p0p0p0p0p0p0b1b3p0p0p0p0p0p0p0p0p0p0p0p0c1"+
