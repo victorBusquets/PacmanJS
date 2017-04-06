@@ -25,7 +25,7 @@ function PacmanGame( canvas, map, cellSize, cellSprite, cellValues, pacmanCharac
 			rotate = map.value[ y * (rowSize) + x ][1];
 
 		if(cellValue!='a' && cellValue!='t'){
-			var spriteStartX = ( cellValues.indexOf( cellValue ) ) * 16;
+			var spriteStartX = ( cellValues.indexOf( cellValue ) ) * cellSize;
 
 			canvas.rotateContext( cellSize*x + cellsInitialPoint.getX() + cellSize/2, cellSize*y + cellsInitialPoint.getY() + cellSize/2, rotate*90 );
 			canvas.drawImage( cellSprite, spriteStartX, 0, cellSize, cellSize, -cellSize/2, -cellSize/2, cellSize, cellSize );

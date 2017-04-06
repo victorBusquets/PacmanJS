@@ -1,5 +1,5 @@
-function Ghost( index, name, ghostSprite, position, free ){
-	var character = new Character( position, ghostSprite, 0, 0, 16,	0 ),
+function Ghost( index, name, ghostSprite, position, cellSize, free ){
+	var character = new Character( position, ghostSprite, 0, 0, cellSize, 0 ),
 		startPosition = new Position( 13, 11),
 		firsTime = true,
 		free = free || false;
