@@ -24,9 +24,9 @@ const DEFAULT_MAP = {
 			"f2c2c2c2c2d0p0b1d2b0b0d0a0b3b1a0d3b2b2d1b3p0d3c2c2c2c2f1"+
 			"a0a0a0a0a0c3p0b1d3b0b0d1a0d2d1a0d2b0b0d0b3p0c1a0a0a0a0a0"+
 			"a0a0a0a0a0c3p0b1b3a0a0a0a0a0a0a0a0a0a0b1b3p0c1a0a0a0a0a0"+
-			"c0c0c0c0c0d1p0d2d1a0h3c0c0x0x0c0c0h0a0d2d1p0d2c0c0c0c0c0"+
-			"t0a0a0a0a0a0p0a0a0a0c3a0a0a0a0a0a0c1a0a0a0p0a0a0a0a0a0t0"+ //<- CENTER
-			"c2c2c2c2c2d0p0d3d0a0h2c2c2c2c2c2c2h1a0d3d0p0d3c2c2c2c2c2"+
+			"c0c0c0c0c0d1p0d2d1a0h3c2c2x2x2c2c2h0a0d2d1p0d2c0c0c0c0c0"+
+			"t0a0a0a0a0a0p0a0a0a0c1a0a0a0a0a0a0c3a0a0a0p0a0a0a0a0a0t0"+ //<- CENTER
+			"c2c2c2c2c2d0p0d3d0a0h2c0c0c0c0c0c0h1a0d3d0p0d3c2c2c2c2c2"+
 			"a0a0a0a0a0c3p0b1b3a0a0a0a0a0a0a0a0a0a0b1b3p0c1a0a0a0a0a0"+
 			"a0a0a0a0a0c3p0b1b3a0d3b0b0b0b0b0b0d0a0b1b3p0c1a0a0a0a0a0"+
 			"f3c0c0c0c0d1p0d2d1a0d2b2b2d0d3b2b2d1a0d2d1p0d2c0c0c0c0f0"+
