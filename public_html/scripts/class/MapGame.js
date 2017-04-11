@@ -77,11 +77,11 @@ function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues ,cel
 			canvas.restoreContext();
 		}
 	};
-	function clearCell( position ){
+	function clearCell( position, specificSize ){
 		var x = position.getX(),
 			y = position.getY();
 			
-		canvas.fillRect( cellSize*x + cellsInitialPoint.getX(), cellSize*y + cellsInitialPoint.getY() , cellSize, cellSize, 'black' );
+		canvas.fillRect( cellSize*x + cellsInitialPoint.getX() -2, cellSize*y + cellsInitialPoint.getY()-2, cellSize+4, cellSize+4, 'black' );
 	};
 	function getPointsCounter(){
 		return points;

@@ -1,5 +1,6 @@
 function PacmanCharacter( position, sprite, actualFrame, numberOfFrames, cellSize, orientation, canvas, cellsInitialPoint, mapGame ){
-	var lastDirection = 38;
+	var lastDirection = 38,
+		spriteSize = cellSize + 2;
 	
 	function newStep( direction ){
 		var newPosition = getNewPosition( position.getNewPositionWithDirection(direction) ),
@@ -36,7 +37,7 @@ function PacmanCharacter( position, sprite, actualFrame, numberOfFrames, cellSiz
 	};
 	function drawRotatedImage(){		
 		canvas.rotateContext( cellSize*position.getX() + cellsInitialPoint.getX() + cellSize/2, cellSize*position.getY() + cellsInitialPoint.getY() + cellSize/2, getOrientation() );		
-		canvas.drawImage( sprite, cellSize * actualFrame, 0, cellSize, cellSize, -cellSize/2, -cellSize/2, cellSize, cellSize);
+		canvas.drawImage( sprite, cellSize * actualFrame, 0, cellSize, cellSize, -cellSize/2, -cellSize/2, spriteSize, spriteSize);
 		canvas.restoreContext();
 	};
 	function init(){
