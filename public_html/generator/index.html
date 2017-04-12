@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>The game is this</title>
+		
+		<!-- Librerias externas -->
+        <script src="./libs/jquery.js" type="text/javascript"></script>
+		<!-- Scripts -->
+
+		<!-- Default map -->
+		<script src="./scripts/class/Position.js" type="text/javascript"></script>
+		<script src="./scripts/defaultMap.js" type="text/javascript"></script>
+		
+		<script src="./scripts/class/Canvas.js" type="text/javascript"></script>
+		<script src="./scripts/class/MapGame.js" type="text/javascript"></script>
+		<script src="./scripts/class/Game.js" type="text/javascript"></script>
+		<script src="./scripts/class/Markers.js" type="text/javascript"></script>
+		<script src="./scripts/class/PacmanCharacter.js" type="text/javascript"></script>
+
+		<script src="./scripts/main.js" type="text/javascript"></script>
+		
+		<!-- Hoja de estilos -->
+		<link rel="stylesheet" type="text/css" href="./styles/styles.css" />
+	</head>
+	<body>
+		<div class="images">
+			<img id="pacman-character-img" src="styles/assets/pacman-sprite.png">
+			<img id="ghost-character-img" src="styles/assets/ghost-sprite.png">
+			<img id="map-img" src="styles/assets/cell-sprite.png">
+		</div>
+		<canvas height="464" width="364" id="game"></canvas>
+	</body>
+</html>

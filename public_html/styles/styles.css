@@ -1,5 +1,7 @@
 body{
 	margin:0;
+	background:black;
+	position:relative;
 }
 
 canvas{
@@ -11,4 +13,66 @@ canvas{
 
 .images{
 	display:none;
+}
+/*REMOVE ALL DOWN THIS*/
+.controls{
+	display:none;
+	position: absolute;
+    width: 100%;
+    bottom: 5%;
+    height: 25%;
+	z-index:1;
+}
+
+.device .controls{
+	display:block;
+}
+.controls .directions{
+    height: 50px;
+    width: 50px;
+    left: 20%;
+    position: absolute;
+	background: rgba(255, 255, 255, .4);
+}
+.controls .directions .action{
+    font-size: 45px;
+    color: rgba(255, 255, 255, .4);
+    background: rgba(128, 128, 128, .4);
+    border: solid 2.5px;
+    font-weight: 800;
+    text-align: center;
+    width: 45px;
+    line-height: 45px;
+    height: 45px;
+    position: absolute;
+	border-radius: 0px 10px 10px 0px;
+}
+.controls .directions .action.right{
+    right: -47px;
+    top: 0;
+}
+.controls .directions .action.left{
+    left: -47px;
+    top: 0;
+    transform: rotate(180deg);
+}
+.controls .directions .action.up{
+    left: 0;
+    top: -47px;
+    transform: rotate(270deg);
+}
+.controls .directions .action.down{
+    left: 0;
+    bottom: -47px;
+    transform: rotate(90deg);
+}
+.controls .pause{
+    position: absolute;
+    right: 10%;
+    width: 100px;
+    height: 50;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, .4);
+    background: rgba(128, 128, 128, .4);
+    border: solid 2.5px;
 }

@@ -1,47 +1,45 @@
 function Game( domId ){
-	const 	cellSize = 13,
+	const 	cellSize = ScreenAdapter().getCellSize(),
+			spriteSize = 13,
 			pacmanImg = $("#pacman-character-img")[0],
 			ghostImg = $("#ghost-character-img")[0],
 			mapImg = $("#map-img")[0],
 			validCellValues = "bcdefghijpsx",
-			cellsInitialPoint = new Position(0, 48);
+			cellsInitialPoint = new Position(0, 24);
 		
 	var paused = false,
 		ghosBuster = false,
 		direction = 38,
 		loopIndex = 0,
 		gameLoopIntervalTime = 60,
-		newFoodPosition = function(){};
+		pacmanMovementSpeed = 5;
 		
-	var canvas 	= new Canvas( domId ),
-		mapGame = new MapGame( DEFAULT_MAP, canvas, mapImg, cellSize, validCellValues, cellsInitialPoint, newFoodPosition ),
-		markers = new Markers( canvas, pacmanImg, cellSize, mapGame.getPointsCounter ),
-		pacman 	= new PacmanCharacter( new Position(13,21), pacmanImg, 0, 4, cellSize, 1, canvas, cellsInitialPoint, mapGame );
+	var canvas 	= new Canvas( domId, ScreenAdapter().getCanvasSizeConfiguration() ),
+		mapGame = new MapGame( DEFAULT_MAP, canvas, mapImg, cellSize, validCellValues, spriteSize ),
+		markers = new Markers( canvas, pacmanImg, cellSize, mapGame.getPointsCounter, spriteSize ),
+		pacman 	= new PacmanCharacter( new Position(13,21), pacmanImg, 0, 4, cellSize, 1, canvas, mapGame, spriteSize );
 	
 	mapGame.setNewFoodPositionCallback( markers.newFoodPosition );
 	
 	//LOOP	
 	function loop(){
 		if( !paused ){
-			if(loopIndex%1 == 0) 	loopCallback1();
-			if(loopIndex%5 == 0) 	loopCallback5();
-			if(loopIndex%10 == 0)	loopCallback10();
+			if( loopIndex%pacmanMovementSpeed == 0 ) 	loopCallback5();
+			animations();
 			loopIndex++;
 		}
 	};
-	function loopCallback1(){
+	function animations(){
 		pacman.newFrame();
 	};
 	function loopCallback5(){
 		pacman.newStep( direction );
 	};
-	function loopCallback10(){
-		//CODE HERE ->..<-
-	};
 		
 	//USER INTERACTIONS
 	function keyDownEvent(e){	
-		e.keyCode === 32 ? pausedKeyAction() : e.keyCode>=37 && e.keyCode<=40 ? directionKeyAction(e.keyCode) : defaultKeyAction(e.keyCode);
+		var keyCode = ( e.keyCode ? e.keyCode : e );
+		keyCode === 32 ? pausedKeyAction() : keyCode>=37 && keyCode<=40 ? directionKeyAction(keyCode) : defaultKeyAction(keyCode);
 	};
 	function pausedKeyAction(){		
 		paused = !paused;
@@ -53,9 +51,19 @@ function Game( domId ){
 	function directionKeyAction( keyCode ){
 		direction = keyCode;
 	};
-	
+	function mobileActionkClick(){
+		keyDownEvent( $(this).data('keycode') );
+	}
+	function addControls(){
+		if( ScreenAdapter().isDevice() ){
+			$("body").addClass("device");
+			$(".controls .action").click( mobileActionkClick );
+		}else{	
+			$("body").keydown( keyDownEvent );
+		}
+	};
 	function init(){
-		$("body").keydown( keyDownEvent );
+		addControls();
 		setInterval( loop, gameLoopIntervalTime );
 	};
 	

@@ -1,11 +1,13 @@
-function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues ,cellsInitialPoint ){
+function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues, spriteSize ){
 	const EMPTY_CELL = 'a0';
 	
 	var value = mapOptions.value,
 		size = mapOptions.size,
 		teleportPoints = mapOptions.teleportPoints,
 		points = 0,
-		newFoodPositionCallback;
+		newFoodPositionCallback,
+		cellsInitialPoint = cellSize*4,
+		clearExtra = cellSize/25;
 		
 	function setNewFoodPositionCallback( newFoodPosition ){
 		newFoodPositionCallback = newFoodPosition;
@@ -70,10 +72,10 @@ function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues ,cel
 			rotate = getMapValue(position)[1];
 			
 		if(cellValue!='a' && cellValue!='t'){
-			var spriteStartX = ( validCellValues.indexOf( cellValue ) ) * cellSize;
+			var spriteStartX = ( validCellValues.indexOf( cellValue ) ) * spriteSize;
 
-			canvas.rotateContext( cellSize*x + cellsInitialPoint.getX() + cellSize/2, cellSize*y + cellsInitialPoint.getY() + cellSize/2, rotate*90 );
-			canvas.drawImage( cellSprite, spriteStartX, 0, cellSize, cellSize, -cellSize/2, -cellSize/2, cellSize, cellSize );
+			canvas.rotateContext( cellSize*x + cellSize/2, cellSize*y + cellsInitialPoint + cellSize/2, rotate*90 );
+			canvas.drawImage( cellSprite, spriteStartX, 0, spriteSize, spriteSize, -cellSize/2, -cellSize/2, cellSize, cellSize );
 			canvas.restoreContext();
 		}
 	};
@@ -81,7 +83,7 @@ function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues ,cel
 		var x = position.getX(),
 			y = position.getY();
 			
-		canvas.fillRect( cellSize*x + cellsInitialPoint.getX() -2, cellSize*y + cellsInitialPoint.getY()-2, cellSize+4, cellSize+4, 'black' );
+		canvas.fillRect( cellSize*x, cellSize*y + cellsInitialPoint, cellSize, cellSize, 'black' );
 	};
 	function getPointsCounter(){
 		return points;
@@ -91,8 +93,6 @@ function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues ,cel
 		var value= getMapValue( position )[0];
 		
 		if( isPointPosition( value ) ){
-			
-			debugger;
 			setCellEmpty(position);
 			newFoodPositionCallback( value );
 		}

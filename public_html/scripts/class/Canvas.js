@@ -1,4 +1,4 @@
-var Canvas = function( domId ){
+var Canvas = function( domId, sizeConfig ){
 	// Atributes //
 	var canvas   = document.getElementById( domId ),
 		context  = canvas.getContext("2d");
@@ -88,6 +88,16 @@ var Canvas = function( domId ){
 			context.drawImage( img, startX, startY, width, height );
 		}
 	};
+	function setSize(){
+		canvas.height = sizeConfig.height;
+		canvas.width  = sizeConfig.width;
+		$( "#"+domId ).css( "margin-top", sizeConfig.margin );
+	}
+	function init(){
+		if(sizeConfig) setSize();
+	};
+	
+	init();
 	
 	return {
 		getHeight: getHeight,
