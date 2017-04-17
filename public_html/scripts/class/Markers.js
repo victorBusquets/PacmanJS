@@ -1,4 +1,4 @@
-function Markers( canvas, pacmanSprite, cellSize, totalPoints, spriteSize ){
+function Markers( canvas, pacmanSprite, cellSize, totalPoints, spriteSize, activateGhostBusterCallback ){
 	const 	SCORE_TITLE = 'HIGH  SCORE',
 			PAUSED_TITLE = 'PAUSED',
 			AMOUNT_SCORE_POINTS = 100,
@@ -27,8 +27,15 @@ function Markers( canvas, pacmanSprite, cellSize, totalPoints, spriteSize ){
 		}
 	};
 	function newFoodPosition( pointType ){
+		var amountScore = AMOUNT_SCORE_POINTS;
+		
+		if(pointType === 's'){
+			amountScore = AMOUNT_SCORE_SUPERPOINTS;
+			activateGhostBusterCallback();
+		}
+		
 		updateRemainingPoints();
-		updateScore( pointType === 'p' ? AMOUNT_SCORE_POINTS : AMOUNT_SCORE_SUPERPOINTS );
+		updateScore( amountScore );
 	};
 	function updateScore( newPoints ){
 		score += newPoints;

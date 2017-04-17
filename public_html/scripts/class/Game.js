@@ -1,23 +1,23 @@
 function Game( domId ){
 	const 	cellSize = ScreenAdapter().getCellSize(),
-			spriteSize = 13,
+			spriteSize = 39,
 			pacmanImg = $("#pacman-character-img")[0],
 			ghostImg = $("#ghost-character-img")[0],
 			mapImg = $("#map-img")[0],
 			validCellValues = "bcdefghijpsx",
-			cellsInitialPoint = new Position(0, 24);
+			cellsInitialPoint = Position(0, 24);
 		
 	var paused = false,
-		ghosBuster = false,
+		ghostBusterMode = false,
 		direction = 38,
 		loopIndex = 0,
 		gameLoopIntervalTime = 60,
-		pacmanMovementSpeed = 5;
-		
-	var canvas 	= new Canvas( domId, ScreenAdapter().getCanvasSizeConfiguration() ),
-		mapGame = new MapGame( DEFAULT_MAP, canvas, mapImg, cellSize, validCellValues, spriteSize ),
-		markers = new Markers( canvas, pacmanImg, cellSize, mapGame.getPointsCounter, spriteSize ),
-		pacman 	= new PacmanCharacter( new Position(13,21), pacmanImg, 0, 4, cellSize, 1, canvas, mapGame, spriteSize );
+		ghostBusterTime = 10000,
+		pacmanMovementSpeed = 5,
+		canvas 	= Canvas( domId, ScreenAdapter().getCanvasSizeConfiguration() ),
+		mapGame = MapGame( DEFAULT_MAP, canvas, mapImg, cellSize, validCellValues, spriteSize ),
+		markers = Markers( canvas, pacmanImg, cellSize, mapGame.getPointsCounter, spriteSize, activateGhostBuster ),
+		pacman 	= PacmanCharacter( Position(13,21), pacmanImg, 0, 4, cellSize, 1, canvas, mapGame, spriteSize );
 	
 	mapGame.setNewFoodPositionCallback( markers.newFoodPosition );
 	
@@ -34,6 +34,16 @@ function Game( domId ){
 	};
 	function loopCallback5(){
 		pacman.newStep( direction );
+		
+	};
+	
+	//GHOST-BUSTER-MODE FUNCTIONS
+	function activateGhostBuster(){
+		ghostBusterMode = true;
+		setTimeout( desactivateGhostBuster, ghostBusterTime );
+	};
+	function desactivateGhostBuster(){
+		ghostBusterMode = false;
 	};
 		
 	//USER INTERACTIONS

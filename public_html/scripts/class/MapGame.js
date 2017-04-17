@@ -79,7 +79,7 @@ function MapGame( mapOptions, canvas, cellSprite, cellSize, validCellValues, spr
 			canvas.restoreContext();
 		}
 	};
-	function clearCell( position, specificSize ){
+	function clearCell( position ){
 		var x = position.getX(),
 			y = position.getY();
 			
