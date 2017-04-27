@@ -1,6 +1,6 @@
 function Game( domId ){
 	const 	cellSize = ScreenAdapter().getCellSize(),
-			spriteSize = 39,
+			spriteSize = 13,
 			pacmanImg = $("#pacman-character-img")[0],
 			ghostImg = $("#ghost-character-img")[0],
 			mapImg = $("#map-img")[0],
